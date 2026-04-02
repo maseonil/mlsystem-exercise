@@ -44,15 +44,8 @@ jobs:
       # Save models to GitHub Repository
       - name: Save mlruns to repo
         run: |
-          git config --global user.name "${{ secrets.username }}"
-          git config --global user.email "${{ secrets.email }}"
+          git config --global user.name ${{ secrets.USERNAME }}
+          git config --global user.email ${{ secrets.EMAIL }}
           git add mlruns/
-          
-          # Gunakan if agar tidak error jika tidak ada perubahan file
-          if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Save mlruns from CI run"
-            # Perbaikan di sini: arahkan ke branch yang aktif (main)
-            git push origin HEAD:${{ github.ref_name }}
-          else
-            echo "No changes to commit"
-          fi
+          git commit -m "Save mlruns from CI run"
+          git push origin master
